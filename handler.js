@@ -603,15 +603,15 @@ export async function handler(chatUpdate) {
           isBanned: false,
           welcome: true,
           detect: true,
-          detect2: false,
+          detect2: true,
           sWelcome: '',
           sBye: '',
           sPromote: '',
           sDemote: '',
           antidelete: false,
-          modohorny: true,
+          modohorny: false,
           autosticker: false,
-          audios: true,
+          audios: false,
           antiLink: false,
           antiLink2: false,
           antiviewonce: false,
@@ -619,12 +619,12 @@ export async function handler(chatUpdate) {
           antiTraba: false,
           antiArab: false,
           antiArab2: false,
-          antiporno: false,
+          antiporno: true,
           modoadmin: false,
           simi: false,
           game: true,
           expired: 0,
-          language: 'es',
+          language: 'ar',
           setPrimaryBot: '',
         }
         for (const chatss in chats) {
@@ -645,7 +645,7 @@ export async function handler(chatUpdate) {
           antiPrivate: false,
           modejadibot: true,
           antispam: false,
-          audios_bot: true,
+          audios_bot: false,
           modoia: false
         };
         for (const setting in settings) {
@@ -659,7 +659,7 @@ export async function handler(chatUpdate) {
     }
 
     const idioma = global.db.data.users[m.sender]?.language || global.defaultLenguaje; // is null? np the operator ?? fix that (i hope)
-    const _translate = JSON.parse(fs.readFileSync(`./src/languages/${idioma}.json`))
+    const _translate = JSON.parse(fs.readFileSync(`./src/languages/ar.json`))
     const tradutor = _translate.handler.handler
 
     if (opts['nyimak']) {
@@ -852,7 +852,7 @@ ${tradutor.texto1[1]} ${messageNumber}/3
             if (user.commandCount === 2) {
               const remainingTime = Math.ceil((user.lastCommandTime + 5000 - Date.now()) / 1000);
               if (remainingTime > 0) {
-                const messageText = `*[ ℹ️ ] Espera* _${remainingTime} segundos_ *antes de utilizar otro comando.*`;
+                const messageText = `*[ ℹ️ ] انتظر* * ${remainingTime} ثانية* *قبل استخدام أمر آخر.*`;
                 m.reply(messageText);
                 return;
               } else {
@@ -1083,7 +1083,7 @@ ${tradutor.texto1[1]} ${messageNumber}/3
  */
 export async function participantsUpdate({ id, participants, action }) {
   const idioma = global?.db?.data?.chats[id]?.language || global.defaultLenguaje;
-  const _translate = JSON.parse(fs.readFileSync(`./src/languages/${idioma}.json`))
+  const _translate = JSON.parse(fs.readFileSync(`./src/languages/ar.json`))
   const tradutor = _translate.handler.participantsUpdate
 
   const m = mconn
@@ -1112,7 +1112,7 @@ export async function participantsUpdate({ id, participants, action }) {
            const responseb = await m.conn.groupParticipantsUpdate(id, [user], 'remove');
             if (responseb[0].status === '404') return;
            const fkontak2 = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 'status@broadcast', 'fromMe': false, 'id': 'Halo' }, 'message': { 'contactMessage': { 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${user.split('@')[0]}:${user.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, 'participant': '0@s.whatsapp.net' };
-           await m?.conn?.sendMessage(id, { text: `*[❗] @${user.split('@')[0]} ᴇɴ ᴇsᴛᴇ ɢʀᴜᴘᴏ ɴᴏ sᴇ ᴘᴇʀᴍɪᴛᴇɴ ɴᴜᴍᴇʀᴏs ᴀʀᴀʙᴇs ᴏ ʀᴀʀᴏs, ᴘᴏʀ ʟᴏ ϙᴜᴇ sᴇ ᴛᴇ sᴀᴄᴀʀᴀ ᴅᴇʟ ɢʀᴜᴘᴏ*`, mentions: [user] }, { quoted: fkontak2 });
+           await m?.conn?.sendMessage(id, { text: `*[❗] @${user.split('@')[0]} في هذه المجموعة **غير مسموح بالأرقام العربية أو الغريبة، لذلك سيتم إخراجك من المجموعة.*`, mentions: [user] }, { quoted: fkontak2 });
            return;
             }
             await m?.conn?.sendFile(id, apii.data, 'pp.jpg', text, null, false, { mentions: [user] });
@@ -1147,7 +1147,7 @@ export async function participantsUpdate({ id, participants, action }) {
 
 export async function groupsUpdate(groupsUpdate) {
   const idioma = global.db.data.chats[groupsUpdate[0].id]?.language || global.defaultLenguaje;
-  const _translate = JSON.parse(fs.readFileSync(`./src/languages/${idioma}.json`))
+  const _translate = JSON.parse(fs.readFileSync(`./src/languages/ar.json`))
   const tradutor = _translate.handler.participantsUpdate
 
   if (opts['self']) {
@@ -1176,11 +1176,11 @@ export async function callUpdate(callUpdate) {
   for (const nk of callUpdate) {
     if (nk.isGroup == false) {
       if (nk.status == 'offer') {
-        const callmsg = await mconn?.conn?.reply(nk.from, `Hola *@${nk.from.split('@')[0]}*, las ${nk.isVideo ? 'videollamadas' : 'llamadas'} no están permitidas, serás bloqueado.\n-\nSi accidentalmente llamaste póngase en contacto con mi creador para que te desbloquee!`, false, { mentions: [nk.from] });
+        const callmsg = await mconn?.conn?.reply(nk.from, `مرحبا  *@${nk.from.split('@')[0]}*, las ${nk.isVideo ? 'videollamadas' : 'llamadas'} هدا الفعل غير مسموح \n-\nإذا قمت بالاتصال عن طريق الخطأ، تواصل مع منشئ البوت ليقوم بإلغاء حظرك!`, false, { mentions: [nk.from] });
         // let data = global.owner.filter(([id, isCreator]) => id && isCreator)
         // await this.sendContact(nk.from, data.map(([id, name]) => [id, name]), false, { quoted: callmsg })
-        const vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;𝐁𝐫𝐮𝐧𝐨 𝐒𝐨𝐛𝐫𝐢𝐧𝐨 👑;;;\nFN:𝐁𝐫𝐮𝐧𝐨 𝐒𝐨𝐛𝐫𝐢𝐧𝐨 👑\nORG:𝐁𝐫𝐮𝐧𝐨 𝐒𝐨𝐛𝐫𝐢𝐧𝐨 👑\nTITLE:\nitem1.TEL;waid=5219992095479:+521 999 209 5479\nitem1.X-ABLabel:𝐁𝐫𝐮𝐧𝐨 𝐒𝐨𝐛𝐫𝐢𝐧𝐨 👑\nX-WA-BIZ-DESCRIPTION:[❗] ᴄᴏɴᴛᴀᴄᴛᴀ ᴀ ᴇsᴛᴇ ɴᴜᴍ ᴘᴀʀᴀ ᴄᴏsᴀs ɪᴍᴘᴏʀᴛᴀɴᴛᴇs.\nX-WA-BIZ-NAME:𝐁𝐫𝐮𝐧𝐨 𝐒𝐨𝐛𝐫𝐢𝐧𝐨 👑\nEND:VCARD`;
-        await mconn.conn.sendMessage(nk.from, { contacts: { displayName: '𝐁𝐫𝐮𝐧𝐨 𝐒𝐨𝐛𝐫𝐢𝐧𝐨 👑', contacts: [{ vcard }] } }, { quoted: callmsg });
+        const vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;Ez-achraf 👑;;;\nFN:Ez-achraf 👑\nORG:Ez-achraf 👑\nTITLE:\nitem1.TEL;waid=212656317785:+212656317785\nitem1.X-ABLabel:Ez-achraf 👑\nX-WA-BIZ-DESCRIPTION:[❗] تواصل مع هذا الرقم لأمور هامة \nX-WA-BIZ-NAME:Ez-achraf 👑\nEND:VCARD`;
+        await mconn.conn.sendMessage(nk.from, { contacts: { displayName: 'Ez-achraf 👑', contacts: [{ vcard }] } }, { quoted: callmsg });
         await mconn.conn.updateBlockStatus(nk.from, 'block');
       }
     }
@@ -1191,7 +1191,7 @@ export async function deleteUpdate(message) {
   const datas = global
   const id = message?.participant 
   const idioma = datas.db.data.users[id]?.language || global.defaultLenguaje;
-  const _translate = JSON.parse(fs.readFileSync(`./src/languages/${idioma}.json`))
+  const _translate = JSON.parse(fs.readFileSync(`./src/languages/ar.json`))
   const tradutor = _translate.handler.deleteUpdate
 
   let d = new Date(new Date + 3600000)
@@ -1221,7 +1221,7 @@ ${tradutor.texto1[5]}`.trim();
 global.dfail = (type, m, conn) => {
   const datas = global
   const idioma = datas.db.data.users[m.sender].language || global.defaultLenguaje;
-  const _translate = JSON.parse(fs.readFileSync(`./src/languages/${idioma}.json`))
+  const _translate = JSON.parse(fs.readFileSync(`./src/languages/ar.json`))
   const tradutor = _translate.handler.dfail
 
   const msg = {
