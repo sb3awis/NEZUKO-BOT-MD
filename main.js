@@ -843,14 +843,14 @@ global.reloadHandler = async function (restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate);
   }
 
-  conn.welcome = '👋 ¡Bienvenido/a!\n@user';
-  conn.bye = '👋 ¡Hasta luego!\n@user';
-  conn.spromote = '*[ ℹ️ ] @user Fue promovido a administrador.*';
-  conn.sdemote = '*[ ℹ️ ] @user Fue degradado de administrador.*';
-  conn.sDesc = '*[ ℹ️ ] La descripción del grupo ha sido modificada.*';
-  conn.sSubject = '*[ ℹ️ ] El nombre del grupo ha sido modificado.*';
-  conn.sIcon = '*[ ℹ️ ] Se ha cambiado la foto de perfil del grupo.*';
-  conn.sRevoke = '*[ ℹ️ ] El enlace de invitación al grupo ha sido restablecido.*';
+  conn.welcome = 'مرحبا بييك !\n@user';
+  conn.bye = 'الماء والشطابة تال قاع البحر \n@user';
+  conn.spromote = '🧙‍♂️ @user 🧙‍♂️ لقد ترقية لمنصب ادمن ';
+  conn.sdemote = '🧙‍♂️ @user 🧙‍♂️ لقد اصبحت مجرد عضو حقير لم تعد ادمن';
+  conn.sDesc = 'تم تغيير وصف الخاص بالمجموعة ';
+  conn.sSubject = '*[ ℹ️ ] تم تعديل اسم المجموعة.*';
+  conn.sIcon = '*[ ℹ️ ] تم تغيير صورة الملف الشخصي للمجموعة.*';
+  conn.sRevoke = '*[ ℹ️ ] تمت إعادة تعيين رابط الدعوة إلى المجموعة.*';
 
   const originalHandler = handler.handler.bind(global.conn);
   // HANDLER MEJORADO con procesamiento LID robusto
@@ -1117,7 +1117,7 @@ setInterval(async () => {
   if (stopped === 'close' || !conn || !conn?.user) return;
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `• Activo: ${uptime} | TheMystic-Bot-MD`;
+  const bio = `• Activo: ${uptime} | nezuko bot`;
   await conn?.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 
