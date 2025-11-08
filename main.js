@@ -488,7 +488,9 @@ async function interceptMessages(messages, lidResolver) {
 }
 
 const { state, saveCreds } = await useMultiFileAuthState(global.authFile);
-const { version } = await fetchLatestBaileysVersion();
+const version22 = await fetchLatestBaileysVersion();
+console.log(version22)
+const version = [2, 3000, 1025190524]; 
 let phoneNumber = global.botnumber || process.argv.find(arg => arg.startsWith('--phone='))?.split('=')[1];
 const methodCodeQR = process.argv.includes('--method=qr');
 const methodCode = !!phoneNumber || process.argv.includes('--method=code');
@@ -559,9 +561,9 @@ const connectionOptions = {
   userDevicesCache: userDevicesCache || new Map(),
   defaultQueryTimeoutMs: undefined,
   cachedGroupMetadata: (jid) => global.conn.chats[jid] ?? {},
-  version: [2, 3000, 1023223821],
   keepAliveIntervalMs: 55000,
   maxIdleTimeMs: 60000,
+  version,
 };
 
 global.conn = makeWASocket(connectionOptions);
@@ -753,9 +755,9 @@ async function connectionUpdate(update) {
     return true;
   }
   if (reason == 405) {
-    await fs.unlinkSync("./MysticSession/" + "creds.json");
+    //await fs.unlinkSync("./MysticSession/" + "creds.json");
     console.log(chalk.bold.redBright(`[ ⚠️ ] Conexión replazada, Por favor espere un momento me voy a reiniciar...\nSi aparecen error vuelve a iniciar con : npm start`));
-    process.send('reset');
+    //process.send('reset');
   }
   if (connection === 'close') {
     if (reason === DisconnectReason.badSession) {
@@ -843,14 +845,14 @@ global.reloadHandler = async function (restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate);
   }
 
-  conn.welcome = 'مرحبا بييك !\n@user';
-  conn.bye = 'الماء والشطابة تال قاع البحر \n@user';
-  conn.spromote = '🧙‍♂️ @user 🧙‍♂️ لقد ترقية لمنصب ادمن ';
-  conn.sdemote = '🧙‍♂️ @user 🧙‍♂️ لقد اصبحت مجرد عضو حقير لم تعد ادمن';
-  conn.sDesc = 'تم تغيير وصف الخاص بالمجموعة ';
-  conn.sSubject = '*[ ℹ️ ] تم تعديل اسم المجموعة.*';
-  conn.sIcon = '*[ ℹ️ ] تم تغيير صورة الملف الشخصي للمجموعة.*';
-  conn.sRevoke = '*[ ℹ️ ] تمت إعادة تعيين رابط الدعوة إلى المجموعة.*';
+  conn.welcome = '👋 ¡Bienvenido/a!\n@user';
+  conn.bye = '👋 ¡Hasta luego!\n@user';
+  conn.spromote = '*[ ℹ️ ] @user Fue promovido a administrador.*';
+  conn.sdemote = '*[ ℹ️ ] @user Fue degradado de administrador.*';
+  conn.sDesc = '*[ ℹ️ ] La descripción del grupo ha sido modificada.*';
+  conn.sSubject = '*[ ℹ️ ] El nombre del grupo ha sido modificado.*';
+  conn.sIcon = '*[ ℹ️ ] Se ha cambiado la foto de perfil del grupo.*';
+  conn.sRevoke = '*[ ℹ️ ] El enlace de invitación al grupo ha sido restablecido.*';
 
   const originalHandler = handler.handler.bind(global.conn);
   // HANDLER MEJORADO con procesamiento LID robusto
@@ -1117,7 +1119,7 @@ setInterval(async () => {
   if (stopped === 'close' || !conn || !conn?.user) return;
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `• Activo: ${uptime} | nezuko bot`;
+  const bio = `• Activo: ${uptime} | TheMystic-Bot-MD`;
   await conn?.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 
