@@ -4,8 +4,8 @@ import {fileURLToPath} from 'url';
 import fs from 'fs'; 
 import moment from 'moment-timezone';
 
-global.botnumber = "212708841261"
-global.confirmCode = "ACHRAF77"
+global.botnumber = ""
+global.confirmCode = ""
 global.authFile = `MysticSession`;
 
 // Cambiar a true si el Bot responde a sus comandos con otros comandos.
@@ -16,11 +16,11 @@ global.isBaileysFail = false;
 global.defaultLenguaje = 'ar';
 
 global.owner = [
-  ['212656317785', '👑 Ez-achraf 👑', true],
+  ['212656317785', '👑 Ez-achraf 👑'],
 ];
 
-global.suittag = ['212656317785'];
-global.prems = ['212656317785'];
+global.suittag = [''];
+global.prems = [''];
 
 // Base Rest Api
 global.BASE_API_DELIRIUS = "https://delirius-apiofc.vercel.app";
